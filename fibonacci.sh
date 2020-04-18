@@ -47,9 +47,34 @@ calcFRec()
 }
 
 
+calcFib()
+{
+  f0=$1
+  f1=$2
+  fn=$3
+  total=$4
+
+  echo "f: $f0 $f1 $fn $total"
+
+  total=`expr "$total + $f0 + $f1" |bc `
+
+  if [ $f0 -gt $fn ]
+  then
+      return $total
+  else 
+      f0=`expr "$f1" | bc`
+      f1=`expr "$f1 + 1" | bc`
+      calcFib $f0 $f1 $fn $total
+      total=$?
+      return $total
+  fi
+}
+
+
+
 echo $a $b $n $m
 
-calcFRec $a $n 0
+calcFib $a $b $n 0
 total=$?
 echo "total $total"
 
